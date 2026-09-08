@@ -1,0 +1,5 @@
+export interface EHRPatient{id:string;displayName:string;ageYears:number;weightKg:number;allergies:readonly string[];diagnosis:string;}
+export interface VitalRecord{timeSeconds:number;heartRate:number|null;respiratoryRate:number|null;systolicBP:number|null;diastolicBP:number|null;oxygenSaturation:number|null;temperatureC:number|null;}
+export interface LabRecord{name:string;value:number|string;unit?:string;referenceNote?:string;}
+export interface EHRSnapshot{patient:EHRPatient;vitals:readonly VitalRecord[];labs:readonly LabRecord[];orders:readonly string[];notes:readonly string[];}
+export class EHRStore{private vitals:VitalRecord[]=[];private notes:string[]=[];constructor(private readonly patient:EHRPatient,private readonly labs:LabRecord[]=[],private readonly orders:string[]=[]){ }addVitals(v:VitalRecord){this.vitals.push({...v});}addNote(n:string){this.notes.push(n);}snapshot():EHRSnapshot{return{patient:this.patient,vitals:[...this.vitals],labs:[...this.labs],orders:[...this.orders],notes:[...this.notes]};}}

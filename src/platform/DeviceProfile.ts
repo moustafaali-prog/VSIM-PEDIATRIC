@@ -1,0 +1,3 @@
+export type DeviceClass='DESKTOP'|'TABLET'|'PHONE';
+export interface DeviceProfile{className:DeviceClass;maxDpr:number;touch:boolean;keyboard:boolean;recommendedQuality:'HIGH'|'MEDIUM'|'LOW';}
+export function detectDeviceProfile():DeviceProfile{const w=typeof window==='undefined'?1200:window.innerWidth;const touch=typeof navigator!=='undefined'&&(('ontouchstart'in window)||navigator.maxTouchPoints>0);if(w<768)return{className:'PHONE',maxDpr:1.5,touch,keyboard:false,recommendedQuality:'MEDIUM'};if(w<1200)return{className:'TABLET',maxDpr:2,touch,keyboard:true,recommendedQuality:'HIGH'};return{className:'DESKTOP',maxDpr:2,touch,keyboard:true,recommendedQuality:'HIGH'};}
